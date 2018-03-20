@@ -103,10 +103,11 @@ class Opensslca extends Component
 
     public function init()
     {
-        $this->localTz = date_default_timezone_get();
+      parent::init();
+      $this->localTz = date_default_timezone_get();
     }
 
-    public function generateCetificateAuthority($force = false)
+    public function generateCertificateAuthority($force = false)
     {
         if (! is_dir($this->getCaDir())) {
             if (! mkdir($this->getCaDir())) {
