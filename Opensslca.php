@@ -1,6 +1,6 @@
 <?php
 
-namespace ssimpson\opensslca;
+namespace maxnegro\opensslca;
 
 use Yii;
 use yii\base\Component;
