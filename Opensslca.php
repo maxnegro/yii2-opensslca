@@ -363,7 +363,7 @@ class Opensslca extends Component
     public function getCaDir()
     {
         // realpath is required for proc_open in $this->generateCertificateRevocationList()
-        return realpath(str_replace('@app', \Yii::$app->basePath, $this->ca_dir));
+        return realpath(Yii::getAlias($this->ca_dir));
     }
 
     public function getCaKeyFile()
