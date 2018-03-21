@@ -485,7 +485,7 @@ class Opensslca extends Component
         ) {
             return $fields;
         } else {
-            return "*** unable to get subect from file ***";
+            return NULL;
         }
     }
 
@@ -566,7 +566,7 @@ class Opensslca extends Component
 
     public function getCert($serial)
     {
-        $certfile = $this->getCaDir() . '/certs/' . $serial;
+        $certfile = $this->getCertFile($serial);
 
         if (file_exists($certfile)) {
             $cert = file_get_contents($certfile);
@@ -579,7 +579,7 @@ class Opensslca extends Component
 
     public function getPrivateKey($serial)
     {
-        $keyfile = $this->getCaDir() . '/keys/' . $serial;
+        $keyfile = sprintf('%s/keys/%02X', $this->getCaDir(), $serial);
 
         if (file_exists($keyfile)) {
             $privKey = openssl_pkey_get_private("file://$keyfile" , $this->password);
@@ -655,5 +655,9 @@ class Opensslca extends Component
         if (file_exists($crlnumber) == false) {
             file_put_contents($crlnumber, "1000");
         }
+    }
+
+    public function getCertFile($serial) {
+      return sprintf('%s/certs/%02X', $this->getCaDir(), $serial);
     }
 }
